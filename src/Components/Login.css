@@ -1,0 +1,47 @@
+.login{
+    display: flex;
+    height: 500px;
+    width: 500px;
+
+    margin-right: auto;
+    margin-top: 40px;
+    margin-left: auto;
+   
+}
+.login .img .ecelimg{
+    height: 500px;
+    width: 400px;
+}
+.login .login-form{
+    
+    background-color: #161D6F;
+    height: 380px;
+    color: white;
+    width: 800px;
+    padding: 50px;
+}
+.login .logo{
+    height: 70px;
+    width: 70px;
+    border-radius: 50px;
+}
+input{
+    margin-bottom: 30px;
+    height: 20px;
+    width: 250px;
+    background-color: white;
+    border: 0px solid white;
+    border-radius: 20px;
+    text-align: center;
+}
+.login .login-form button{
+    height: 40px;
+    width: 250px;
+    border-radius: 20px;
+    background-color: #161D6F;
+    color: white;
+    border: 2px solid white;
+}
+.login .login-form h2{
+    margin-bottom: 40px;
+}

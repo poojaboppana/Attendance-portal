@@ -1,0 +1,42 @@
+.navbar{
+    background:linear-gradient(90deg,#161D6F, #0B2F9F);
+    display: flex;
+    justify-content: flex-end;
+}
+.navbar ul{
+    display: flex;
+    gap: 40px;
+    
+}
+.navbar li{
+    list-style-type: none;
+    margin-top: 20px;
+}
+.navbar a{
+    text-decoration: none;
+    margin-right: 40px;
+    padding: 10px 20px;
+    background-color: white;
+    color: #0B2F9F;
+    border-radius: 30px;
+    
+}
+.navbar a:hover{
+    background-color: bisque;
+    height: auto;
+    width: auto;
+}
+.navbar a:active{
+    background-color: rgb(6, 6, 88);
+    color: aliceblue;
+}
+.navbar .logo{
+    height: 60px;
+    width: 60px;
+    border-radius: 50px;
+    margin-right: 200px;
+    margin-top: -15px;
+}
+body{
+    text-align: center;
+}
