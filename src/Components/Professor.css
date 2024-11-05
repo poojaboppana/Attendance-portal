@@ -1,0 +1,35 @@
+/* Professor.css */
+.professor {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background-color: #f5f5f5;
+}
+
+.professor h2 {
+    margin-bottom: 20px;
+}
+
+.roll-list {
+    margin-top: 20px;
+}
+
+.roll-list ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.roll-list li {
+    margin: 5px 0;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #161D6F;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}

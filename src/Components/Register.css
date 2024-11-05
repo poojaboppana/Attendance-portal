@@ -1,7 +1,7 @@
 .register{
     display: flex;
     height: 500px;
-    width: 500px;
+    width: 800px;
 
     margin-right: auto;
     margin-top: 40px;
@@ -17,7 +17,7 @@
     background-color: #161D6F;
     height: 380px;
     color: white;
-    width: 800px;
+    width: 1000px;
     padding: 50px;
 }
 .register .logo{
@@ -44,4 +44,8 @@ input{
 }
 .register .register-form h2{
     margin-bottom: 40px;
+}
+a{
+    color: white;
+   
 }

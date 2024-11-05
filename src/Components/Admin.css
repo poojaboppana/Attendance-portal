@@ -1,0 +1,74 @@
+.admin {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    background-color: #f5f5f5;
+}
+
+.admin h2 {
+    margin-bottom: 20px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+form input {
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    width: 100px; /* Set width for better layout */
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #161D6F;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.roll-list {
+    margin-top: 20px;
+    width: 100%; /* Ensure the list takes full width */
+    display: grid; /* Use grid layout */
+    grid-template-columns: repeat(6, 1fr); /* Three columns */
+    gap: 10px; /* Space between grid items */
+}
+
+.roll-list ul {
+    list-style-type: none;
+    padding: 0;
+    display: contents; /* Allow grid to manage child items directly */
+}
+
+.roll-list li {
+    background-color: rgb(192, 207, 247); /* Light grey background for roll numbers */
+    padding: 15px; /* Padding around each roll number */
+    border-radius: 8px; /* Rounded corners */
+    text-align: center; /* Center text */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.roll-list li button {
+    margin: 1px; /* Space around buttons */
+    background-color: #ff4757; /* Color for remove button */
+}
+
+.roll-list li button:hover {
+    background-color: #e84118; /* Darker shade on hover */
+}
+
+.roll-list li button:nth-child(2) {
+    background-color: #1e90ff; /* Color for edit button */
+}
+
+.roll-list li button:nth-child(2):hover {
+    background-color: #3498db; /* Darker shade on hover */
+}
