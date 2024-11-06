@@ -13,24 +13,25 @@ function Register() {
     const navigate = useNavigate();
 
     const handleRegister = async (e) => {
-        e.preventDefault();
-
+        e.preventDefault(); // Prevents the default action behavior
+    
         if (password !== confirmPassword) {
             setMessage('Passwords do not match');
             return;
         }
-
+    
         try {
             const response = await axios.post('http://localhost:5000/auth/register', { email, password });
-            
+    
             if (response.data.success) {
                 setMessage('Registration successful!');
-                navigate('/login'); // Redirect to login page
+                navigate('/login'); // SPA navigation without reload
             }
         } catch (error) {
             setMessage(error.response?.data?.message || 'An error occurred. Please try again.');
         }
     };
+    
 
     return (
         <div className='register'>
