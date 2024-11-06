@@ -45,3 +45,13 @@ input{
 .login .login-form h2{
     margin-bottom: 40px;
 }
+.login input{
+    width: 200px;
+}
+.login select{
+    width: 220px;
+    height: 40px;
+    border-radius: 20px;
+    text-align: center;
+    margin-top: 10px;
+}

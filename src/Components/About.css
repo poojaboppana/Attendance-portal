@@ -1,0 +1,36 @@
+.about-container {
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+}
+
+.tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 20px 0;
+}
+
+.tabs button {
+    padding: 10px 20px;
+    border: 1px solid #ddd;
+    background-color: #007BFF;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.tabs button.active {
+    background-color: #007BFF;
+    color: white;
+}
+
+.tab-content {
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    margin-top: 10px;
+}
+
+.tab-content h2 {
+    margin-top: 0;
+}
