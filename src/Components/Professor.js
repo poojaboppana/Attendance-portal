@@ -12,6 +12,9 @@ function Professor() {
 
     useEffect(() => {
         const savedRollNumbers = JSON.parse(localStorage.getItem('rollNumbers'));
+        const lastUpdated = localStorage.getItem('lastUpdated');
+        const oneYearInMillis = 365 * 24 * 60 * 60 * 1000; // Milliseconds in a year
+
         if (savedRollNumbers) {
             setRollNumbers(savedRollNumbers);
             const initialAttendance = {};
@@ -19,6 +22,30 @@ function Professor() {
                 initialAttendance[roll] = false; // All initially marked as absent
             });
             setAttendance(initialAttendance);
+
+            // Check if one year has passed since the last update
+            const currentTime = new Date().getTime();
+            if (!lastUpdated || currentTime - lastUpdated > oneYearInMillis) {
+                setAttendanceRecords([]); // Reset attendance records if a year has passed
+                setPresentCounts({});
+                setTotalDays(0);
+            } else {
+                const savedAttendanceRecords = JSON.parse(localStorage.getItem('attendanceRecords'));
+                if (savedAttendanceRecords) {
+                    setAttendanceRecords(savedAttendanceRecords);
+                    setTotalDays(savedAttendanceRecords.length);
+                    // Calculate present counts from saved records
+                    const updatedPresentCounts = savedAttendanceRecords.reduce((counts, record) => {
+                        Object.keys(record.attendance).forEach(roll => {
+                            if (record.attendance[roll] === 'Present') {
+                                counts[roll] = (counts[roll] || 0) + 1;
+                            }
+                        });
+                        return counts;
+                    }, {});
+                    setPresentCounts(updatedPresentCounts);
+                }
+            }
         }
     }, []);
 
@@ -65,6 +92,12 @@ function Professor() {
         });
 
         alert('Attendance submitted successfully for ' + date + '!');
+
+        // Save the updated attendance records to localStorage
+        localStorage.setItem('attendanceRecords', JSON.stringify(updatedAttendanceRecords));
+
+        // Save the last updated timestamp
+        localStorage.setItem('lastUpdated', new Date().getTime());
 
         // Send the attendance data to the backend
         const attendanceData = {
