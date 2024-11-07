@@ -1,6 +1,6 @@
 .register{
     display: flex;
-    height: 500px;
+    height: 550px;
     width: 800px;
 
     margin-right: auto;
@@ -9,13 +9,13 @@
    
 }
 .register .img .ecelimg{
-    height: 500px;
+    height: 523px;
     width: 400px;
 }
 .register .register-form{
     
     background-color: #161D6F;
-    height: 380px;
+    height: 400px;
     color: white;
     width: 1000px;
     padding: 50px;

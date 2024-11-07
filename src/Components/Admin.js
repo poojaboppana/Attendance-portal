@@ -47,34 +47,9 @@ function Admin() {
         setRollNumbers(updatedRollNumbers);
     };
 
-    const handleSubmit = async () => {
-        if (rollNumbers.length === 0) {
-            alert('No roll numbers to save!');
-            return;
-        }
-
-        console.log('Sending roll numbers:', rollNumbers);  // Debugging: Check the data
-
-        try {
-            const response = await fetch('/api/attendance/saveRollNumbers', { // Ensure correct endpoint
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ rollNumbers }),
-            });
-
-            if (response.ok) {
-                alert('Roll numbers have been saved to the database!');
-            } else {
-                const errorMessage = await response.text();
-                console.error('Error saving roll numbers:', errorMessage);  // Log the exact error
-                alert(`Failed to save roll numbers: ${errorMessage}`);
-            }
-        } catch (error) {
-            console.error('Error saving roll numbers:', error);  // Log any fetch-related errors
-            alert('An error occurred while saving roll numbers to the database.');
-        }
+    const handleSubmit = () => {
+        localStorage.setItem('rollNumbers', JSON.stringify(rollNumbers));
+        alert('Roll numbers have been saved!');
     };
 
     return (
@@ -91,6 +66,7 @@ function Admin() {
             </form>
             <button onClick={handleSubmit}>Save Roll Numbers</button>
             <div className="roll-list">
+               
                 <ul>
                     {rollNumbers.map((roll, index) => (
                         <li key={index}>

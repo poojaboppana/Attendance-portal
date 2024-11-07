@@ -1,4 +1,3 @@
-// Professor.js
 import React, { useState, useEffect } from 'react';
 import './Professor.css';
 import * as XLSX from 'xlsx';
@@ -11,15 +10,14 @@ function Professor() {
     const [presentCounts, setPresentCounts] = useState({}); // Track present counts for each roll number
     const [totalDays, setTotalDays] = useState(0); // Track total days of attendance marked
 
-    
     useEffect(() => {
         const savedRollNumbers = JSON.parse(localStorage.getItem('rollNumbers'));
         if (savedRollNumbers) {
             setRollNumbers(savedRollNumbers);
-            const initialAttendance = savedRollNumbers.reduce((acc, roll) => {
-                acc[roll] = false; // Initially mark all as absent
-                return acc;
-            }, {});
+            const initialAttendance = {};
+            savedRollNumbers.forEach(roll => {
+                initialAttendance[roll] = false; // All initially marked as absent
+            });
             setAttendance(initialAttendance);
         }
     }, []);
@@ -31,14 +29,14 @@ function Professor() {
         }));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         if (!date) {
             alert('Please enter a date to mark attendance.');
             return;
         }
 
-       
+        // Prepare data for the current attendance
         const currentAttendanceData = {};
         rollNumbers.forEach(roll => {
             currentAttendanceData[roll] = attendance[roll] ? 'Present' : 'Absent';
@@ -51,7 +49,6 @@ function Professor() {
             }
         });
 
-
         // Add the current attendance data to the records with the date
         const newAttendanceRecord = { date, attendance: currentAttendanceData };
         const updatedAttendanceRecords = [...attendanceRecords, newAttendanceRecord];
@@ -59,13 +56,42 @@ function Professor() {
         setTotalDays(updatedAttendanceRecords.length); // Update total days count
 
         // Reset attendance after submission
-        const resetAttendance = rollNumbers.reduce((acc, roll) => {
-            acc[roll] = false; // Reset all to absent
-            return acc;
-        }, {});
-        setAttendance(resetAttendance);
+        setAttendance((prev) => {
+            const updatedAttendance = {};
+            rollNumbers.forEach(roll => {
+                updatedAttendance[roll] = false; // Reset attendance for each roll number
+            });
+            return updatedAttendance;
+        });
 
         alert('Attendance submitted successfully for ' + date + '!');
+
+        // Send the attendance data to the backend
+        const attendanceData = {
+            rollNumbers,
+            presentCounts,
+            totalDays,
+            attendanceRecords: updatedAttendanceRecords
+        };
+
+        try {
+            const response = await fetch('http://localhost:5000/api/saveAttendance', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(attendanceData),
+            });
+
+            if (response.ok) {
+                alert('Attendance data saved to database successfully!');
+            } else {
+                alert('Failed to save attendance data.');
+            }
+        } catch (error) {
+            console.error('Error saving attendance data:', error);
+            alert('Error saving attendance data.');
+        }
     };
 
     const downloadExcel = () => {
@@ -94,17 +120,17 @@ function Professor() {
         const workbook = XLSX.utils.book_new();
         XLSX.utils.book_append_sheet(workbook, worksheet, 'Attendance');
 
-        // Create a file and trigger the download
+        // Create a file and trigger the download with a valid filename
         XLSX.writeFile(workbook, 'Attendance_Report.xlsx');
     };
 
     const handleDateChange = (e) => {
         setDate(e.target.value);
         // Reset attendance when a new date is selected
-        const initialAttendance = rollNumbers.reduce((acc, roll) => {
-            acc[roll] = false; // All initially marked as absent
-            return acc;
-        }, {});
+        const initialAttendance = {};
+        rollNumbers.forEach(roll => {
+            initialAttendance[roll] = false; // All initially marked as absent
+        });
         setAttendance(initialAttendance);
     };
 

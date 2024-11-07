@@ -1,3 +1,4 @@
+// Login.js
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -25,9 +26,8 @@ function Login() {
 
             if (response.data.success) {
                 setMessage('Login successful!');
-
                 // Redirect based on the selected role
-                switch(role) {
+                switch (role) {
                     case 'admin':
                         navigate('/admin');
                         break;
@@ -59,14 +59,14 @@ function Login() {
                         placeholder='Email' 
                         value={email} 
                         onChange={(e) => setEmail(e.target.value)} 
-                        required // Make the input required
+                        required 
                     />
                     <input 
                         type='password' 
                         placeholder='Password' 
                         value={password} 
                         onChange={(e) => setPassword(e.target.value)} 
-                        required // Make the input required
+                        required 
                     />
                     
                     <select 
@@ -74,7 +74,7 @@ function Login() {
                         className="role-select" 
                         value={role} 
                         onChange={(e) => setRole(e.target.value)}
-                        required // Ensure a role is selected
+                        required 
                     >
                         <option value="" disabled>Select Role</option>
                         <option value="admin">Admin</option>

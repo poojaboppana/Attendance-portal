@@ -1,3 +1,4 @@
+// register.js
 import React, { useState } from 'react';
 import axios from 'axios';
 import ecellogo from './ecellogo.png';
@@ -13,25 +14,24 @@ function Register() {
     const navigate = useNavigate();
 
     const handleRegister = async (e) => {
-        e.preventDefault(); // Prevents the default action behavior
-    
+        e.preventDefault();
+ 
         if (password !== confirmPassword) {
             setMessage('Passwords do not match');
             return;
         }
-    
+
         try {
             const response = await axios.post('http://localhost:5000/auth/register', { email, password });
-    
+            
             if (response.data.success) {
                 setMessage('Registration successful!');
-                navigate('/login'); // SPA navigation without reload
+                setTimeout(() => navigate('/login'), 1000); // Redirect to login page after 1 second
             }
         } catch (error) {
             setMessage(error.response?.data?.message || 'An error occurred. Please try again.');
         }
     };
-    
 
     return (
         <div className='register'>
