@@ -1,5 +1,5 @@
-// User.js
 import React, { useState } from 'react';
+import './Student.css';
 
 function Student() {
     const [rollNumber, setRollNumber] = useState('');
@@ -31,7 +31,8 @@ function Student() {
             <button onClick={handleCheckAttendance}>Check Attendance</button>
             {attendanceInfo && (
                 <div>
-                    <p>Present Days: {attendanceInfo.presentDays}</p>
+                    <p>Present Days: {attendanceInfo.presentCount}</p>
+                    <p>Absent Days: {attendanceInfo.absentCount}</p>
                     <p>Total Days: {attendanceInfo.totalDays}</p>
                     <p>Attendance Percentage: {attendanceInfo.attendancePercentage}</p>
                 </div>

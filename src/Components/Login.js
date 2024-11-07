@@ -84,6 +84,7 @@ function Login() {
 
                     <button type='submit'>Sign In</button>
                     {message && <p className="error-message">{message}</p>}
+                    <p>Don't have an account?<a href="/register"> Register here</a></p>
                 </form>
             </div>
             <div className='img'>

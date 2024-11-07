@@ -1,0 +1,57 @@
+/* General styles */
+
+
+/* Style for the container div */
+.user {
+    background-color: #161D6F;
+    color: white;
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Title styles */
+.user h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Input field styling */
+.user input {
+    width: 80%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+/* Button styling */
+.user button {
+    width: 80%;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.user button:hover {
+    background-color: #45a049;
+}
+
+/* Result section styling */
+.user div {
+    margin-top: 20px;
+}
+
+.user p {
+    font-size: 16px;
+    margin: 5px 0;
+    color: wheat;
+}

@@ -55,3 +55,7 @@ input{
     text-align: center;
     margin-top: 10px;
 }
+
+.login .login-form p{
+    color: white;
+}
