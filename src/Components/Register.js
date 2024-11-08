@@ -26,7 +26,7 @@ function Register() {
             
             if (response.data.success) {
                 setMessage('Registration successful!');
-                setTimeout(() => navigate('/login'), 1000); // Redirect to login page after 1 second
+                setTimeout(() => navigate('/login'), 1000); 
             }
         } catch (error) {
             setMessage(error.response?.data?.message || 'An error occurred. Please try again.');

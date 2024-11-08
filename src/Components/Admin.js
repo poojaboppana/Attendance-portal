@@ -18,7 +18,6 @@ function Admin() {
         const trimmedRollNumber = rollNumber.trim();
 
         if (trimmedRollNumber) {
-            // Check for duplicates
             if (rollNumbers.includes(trimmedRollNumber)) {
                 alert('This roll number already exists. Please enter a different one.');
                 return;

@@ -1,73 +1,65 @@
-/* Container to hold the two sections side by side */
 .img-container {
     display: flex;
     justify-content: space-between;
     height: 100vh;
 }
 
-/* Styling for the text section */
 .text-section {
-    flex: 1; /* Ensures equal width for both sections */
-    padding: 16px; /* Adjusted padding for better spacing */
+    flex: 1; 
+    padding: 16px; 
     background-color: #f4f4f4;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    height: 100%; /* Ensures full height of the container */
-    margin-top: 0; /* Removed unnecessary negative margin */
+    height: 100%; 
+    margin-top: 0; 
 }
 
-/* Title styling */
 .text-section h1 {
     font-size: 36px;
     margin-bottom: 20px;
     color: #161D6F;
 }
 
-/* Description paragraph styling */
 .text-section p {
     font-size: 18px;
     line-height: 1.6;
     color: #555;
 }
 
-/* Styling for the image section (for slides) */
 .image-section {
-    flex: 1; /* Ensures equal width for both sections */
+    flex: 1; 
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 10px; /* Reduced padding */
-    height: 70%; /* Ensure full height of the container */
+    padding: 10px; 
+    height: 70%; 
     position: relative;
     overflow: hidden;
     border-radius: 15px;
     background-color: #f5f5f5;
-    margin-top: 30px; /* Removed unnecessary top margin */
+    margin-top: 30px; 
     background-color:  #161D6F;
     padding: auto;
     border-radius: 20px;
 }
 
-/* Slide container for multiple images */
 .slide-image {
-    width: 100%; /* Ensure image fills container width */
-    max-width: 500px; /* Optional max width for better responsiveness */
-    height: auto; /* Maintain aspect ratio */
+    width: 100%;
+    max-width: 500px; 
+    height: auto; 
     object-fit: cover;
     position: absolute;
-    opacity: 0; /* Start with hidden images */
+    opacity: 0; 
     transition: opacity 0.3s ease-in-out;
     border: 4px solid white;
    border-radius: 20px;
 }
 
-/* Show the active image */
 .slide-image.active {
     opacity: 1;
 }
 
-/* Adjust table of contents top margin to reduce gap */
 .table-of-contents {
-    margin-top: 10px; /* Reduced top margin to decrease gap */
+    margin-top: 10px; 
 }

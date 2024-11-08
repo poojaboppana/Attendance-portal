@@ -1,14 +1,12 @@
-/* Contact Page Styling */
 .contact-container {
     display: flex;
     justify-content: center;
     padding: 20px;
-    margin-top: 30px; /* Reduced margin-top to move the boxes up */
+    margin-top: 30px; 
     min-height: 100vh;
-    align-items: flex-start; /* Align the items towards the top */
+    align-items: flex-start; 
 }
 
-/* Create a small centered box that will hold the two boxes */
 .contact-box {
     display: flex;
     flex-direction: row;
@@ -20,42 +18,37 @@
     padding: 10px;
     border-radius: 10px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-    border: 2px solid navy; /* Add black border around the contact box */
+    border: 2px solid navy; 
 }
 
-/* Styling for each box inside the contact-box */
 .contact-box .box {
-    width: 48%; /* Default width for both boxes */
+    width: 48%; 
     padding: 20px;
     background-color: white;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    margin-right: 2%; /* Adds space between the boxes */
+    margin-right: 2%; 
 }
 
-/* Increase width of the first box (Contact Us) */
 .contact-box .box.contact-us {
-    width: 60%; /* Increase width of Contact Us box */
-    margin-right: 5%; /* Increase gap between boxes */
+    width: 60%; 
+    margin-right: 5%; 
 }
 
-/* Remove margin from the last box to prevent extra space at the end */
 .contact-box .box:last-child {
     margin-right: 0;
 }
 
-/* Styling for the header inside the box */
+
 .contact-box .box h2 {
     font-size: 1.5em;
     margin-bottom: 15px;
 }
 
-/* Add a margin-bottom to the "Contact Us" heading to give space */
 .contact-box .box .contact-header {
-    margin-bottom: 20px; /* Add space between Contact Us and the form */
+    margin-bottom: 20px; 
 }
 
-/* Styling for input, textarea, and button elements */
 .contact-box .box input,
 .contact-box .box textarea {
     width: 100%;
@@ -66,7 +59,6 @@
     border-radius: 5px;
 }
 
-/* Give a gap between input/textarea and the Send Message button */
 .contact-box .box button {
     width: 100%;
     padding: 10px;
@@ -75,14 +67,13 @@
     font-size: 1.1em;
     border: none;
     border-radius: 5px;
-    margin-top: 10px; /* Add space between the text fields and the Send Message button */
+    margin-top: 10px; 
 }
 
 .contact-box .box button:hover {
     background-color: #555;
 }
 
-/* Social Media Section */
 .social-media {
     margin-top: 20px;
     text-align: center;

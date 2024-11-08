@@ -26,7 +26,6 @@ function Login() {
 
             if (response.data.success) {
                 setMessage('Login successful!');
-                // Redirect based on the selected role
                 switch (role) {
                     case 'admin':
                         navigate('/admin');

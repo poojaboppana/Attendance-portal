@@ -10,7 +10,7 @@
 h1 {
     text-align: center;
     color: #333;
-    margin-bottom: 30px; /* Optional: Adjust as needed */
+    margin-bottom: 30px; 
 }
 
 p {
@@ -22,7 +22,7 @@ p {
 .tabs {
     display: flex;
     justify-content: space-around;
-    margin: 30px 0 20px; /* Increased top margin for spacing */
+    margin: 30px 0 20px; 
 }
 
 button {

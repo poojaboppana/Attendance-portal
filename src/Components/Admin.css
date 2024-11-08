@@ -21,7 +21,7 @@ form input {
     margin: 10px 0;
     border-radius: 5px;
     border: 1px solid #ddd;
-    width: 100px; /* Set width for better layout */
+    width: 100px; 
 }
 
 button {
@@ -36,39 +36,39 @@ button {
 
 .roll-list {
     margin-top: 20px;
-    width: 100%; /* Ensure the list takes full width */
-    display: grid; /* Use grid layout */
-    grid-template-columns: repeat(6, 1fr); /* Three columns */
-    gap: 10px; /* Space between grid items */
+    width: 100%; 
+    display: grid; 
+    grid-template-columns: repeat(6, 1fr); 
+    gap: 10px; 
 }
 
 .roll-list ul {
     list-style-type: none;
     padding: 0;
-    display: contents; /* Allow grid to manage child items directly */
+    display: contents; 
 }
 
 .roll-list li {
-    background-color: rgb(192, 207, 247); /* Light grey background for roll numbers */
-    padding: 15px; /* Padding around each roll number */
-    border-radius: 8px; /* Rounded corners */
-    text-align: center; /* Center text */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    background-color: rgb(192, 207, 247); 
+    padding: 15px; 
+    border-radius: 8px; 
+    text-align: center; 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
 }
 
 .roll-list li button {
-    margin: 1px; /* Space around buttons */
-    background-color: #ff4757; /* Color for remove button */
+    margin: 1px; 
+    background-color: #ff4757; 
 }
 
 .roll-list li button:hover {
-    background-color: #e84118; /* Darker shade on hover */
+    background-color: #e84118; 
 }
 
 .roll-list li button:nth-child(2) {
-    background-color: #1e90ff; /* Color for edit button */
+    background-color: #1e90ff; 
 }
 
 .roll-list li button:nth-child(2):hover {
-    background-color: #3498db; /* Darker shade on hover */
+    background-color: #3498db; 
 }
