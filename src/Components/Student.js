@@ -7,7 +7,7 @@ function Student() {
 
     const handleCheckAttendance = async () => {
         try {
-            const response = await fetch(`http://localhost:5000/attendance/${rollNumber}`);
+            const response = await fetch(`http://localhost:5000/api/attendance/${rollNumber}`);
             if (response.ok) {
                 const data = await response.json();
                 setAttendanceInfo(data);

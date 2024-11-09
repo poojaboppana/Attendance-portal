@@ -15,10 +15,10 @@ function Admin() {
 
     const handleAddRollNumber = (e) => {
         e.preventDefault();
-        const trimmedRollNumber = rollNumber.trim();
+        const trimmedRollNumber = rollNumber.trim().toLowerCase();
 
         if (trimmedRollNumber) {
-            if (rollNumbers.includes(trimmedRollNumber)) {
+            if (rollNumbers.some(roll => roll.toLowerCase() === trimmedRollNumber)) {
                 alert('This roll number already exists. Please enter a different one.');
                 return;
             }
@@ -65,7 +65,6 @@ function Admin() {
             </form>
             <button onClick={handleSubmit}>Save Roll Numbers</button>
             <div className="roll-list">
-               
                 <ul>
                     {rollNumbers.map((roll, index) => (
                         <li key={index}>

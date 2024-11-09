@@ -15,7 +15,7 @@ function Register() {
 
     const handleRegister = async (e) => {
         e.preventDefault();
- 
+
         if (password !== confirmPassword) {
             setMessage('Passwords do not match');
             return;
@@ -26,7 +26,7 @@ function Register() {
             
             if (response.data.success) {
                 setMessage('Registration successful!');
-                setTimeout(() => navigate('/login'), 1000); 
+                setTimeout(() => navigate('/login'), 1000); // Redirect to login page after 1 second
             }
         } catch (error) {
             setMessage(error.response?.data?.message || 'An error occurred. Please try again.');
