@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './Student.css'
+
 function Student() {
     const [rollNumber, setRollNumber] = useState('');
     const [attendanceInfo, setAttendanceInfo] = useState(null);
@@ -10,7 +11,7 @@ function Student() {
         setLoading(true);
         setError(null);
         try {
-            const response = await fetch(`http://localhost:5000/api/attendance/${rollNumber}`);
+            const response = await fetch(`http://localhost:5000/api/attendance/${rollNumber.toLowerCase()}`);
             if (response.ok) {
                 const data = await response.json();
                 setAttendanceInfo(data);

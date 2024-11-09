@@ -1,4 +1,4 @@
-// Login.js
+
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -26,7 +26,7 @@ function Login() {
 
             if (response.data.success) {
                 setMessage('Login successful!');
-                // Redirect based on the selected role
+            
                 switch (role) {
                     case 'admin':
                         navigate('/admin');
