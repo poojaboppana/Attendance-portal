@@ -12,7 +12,7 @@ function Contact() {
             return;
         }
 
-        const phoneNumber = "7207547829";  
+        const phoneNumber = "+918074832433";  
         const encodedMessage = encodeURIComponent(`Name: ${name}\nEmail: ${email}\nMessage: ${message}`);
         const whatsappLink = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
 

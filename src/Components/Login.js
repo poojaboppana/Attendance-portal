@@ -12,9 +12,10 @@ function Login() {
     const [role, setRole] = useState('');
     const [message, setMessage] = useState('');
     const navigate = useNavigate();
-
+        
     const handleLogin = async (e) => {
         e.preventDefault();
+    
 
         if (!role) {
             setMessage('Please select a role.');
@@ -25,9 +26,9 @@ function Login() {
             const response = await axios.post('http://localhost:5000/auth/login', { email, password, role });
 
             if (response.data.success) {
-                setMessage('Login successful!');
+                setMessage('Login successful!'); 
             
-                switch (role) {
+                switch (role) { 
                     case 'admin':
                         navigate('/admin');
                         break;

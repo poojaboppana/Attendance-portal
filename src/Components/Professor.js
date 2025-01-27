@@ -75,18 +75,22 @@ function Professor() {
         const newAttendanceRecord = { date, attendance: currentAttendanceData };
         const updatedAttendanceRecords = [...attendanceRecords, newAttendanceRecord];
         setAttendanceRecords(updatedAttendanceRecords);
+
+        // Recalculate totalDays as the number of distinct dates for which attendance has been taken.
         setTotalDays(updatedAttendanceRecords.length);
 
+        // Reset attendance for the next day
         setAttendance((prev) => {
             const updatedAttendance = {};
             rollNumbers.forEach(roll => {
-                updatedAttendance[roll] = false;
+                updatedAttendance[roll] = false; // Reset attendance for each roll number
             });
             return updatedAttendance;
         });
 
         alert('Attendance submitted successfully for ' + date + '!');
 
+        // Save to localStorage
         localStorage.setItem('attendanceRecords', JSON.stringify(updatedAttendanceRecords));
         localStorage.setItem('lastUpdated', new Date().getTime());
 

@@ -1,7 +1,7 @@
 import './Navbar.css'
 import ecellogo from './ecellogo.png';
 import {Link} from 'react-router-dom'
-function Navbar(){
+function Navbar(){  
     return(
         <div className='navbar'>
             <ul>
