@@ -1,61 +1,165 @@
-.login{
-    display: flex;
-    height: 500px;
-    width: 800px;
+/* Reset any inherited styles */
+.login-page-container,
+.login-page-container * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
 
-    margin-right: auto;
-    margin-top: 40px;
-    margin-left: auto;
-   
-}
-.login .img .ecelimg{
-    height: 500px;
-    width: 400px;
-}
-.login .login-form{
-    
-    background-color: #161D6F;
-    height: 380px;
-    color: white;
+/* Main container styles */
+.login-page-container {
+    display: flex;
     width: 800px;
-    padding: 50px;
+    margin: 140px auto 0;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    height: 500px; /* Fixed height for the entire container */
 }
-.login .logo{
+
+/* Form container styles */
+.login-form-container {
+    background-color: #161D6F;
+    color: white;
+    width: 400px;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%; /* Take full height of parent */
+}
+
+/* Logo styles */
+.login-logo {
     height: 70px;
     width: 70px;
-    border-radius: 50px;
-}
-input{
-    margin-bottom: 30px;
-    height: 20px;
-    width: 250px;
+    border-radius: 50%;
+    margin: 0 auto 20px;
+    display: block;
     background-color: white;
-    border: 0px solid white;
-    border-radius: 20px;
-    text-align: center;
-}
-.login .login-form button{
-    height: 40px;
-    width: 250px;
-    border-radius: 20px;
-    background-color: #161D6F;
-    color: white;
-    border: 2px solid white;
-}
-.login .login-form h2{
-    margin-bottom: 40px;
-}
-.login input{
-    width: 200px;
-}
-.login select{
-    width: 220px;
-    height: 40px;
-    border-radius: 20px;
-    text-align: center;
-    margin-top: 10px;
 }
 
-.login .login-form p{
+/* Title styles */
+.login-title {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 24px;
     color: white;
+}
+
+/* Input field styles */
+.login-input {
+    display: block;
+    width: 100%;
+    height: 40px;
+    margin-bottom: 20px;
+    padding: 0 15px;
+    background-color: white;
+    border: none;
+    border-radius: 20px;
+    font-size: 14px;
+}
+
+.login-input:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3);
+}
+
+/* Select field styles */
+.login-select {
+    display: block;
+    width: 100%;
+    height: 40px;
+    margin-bottom: 20px;
+    padding: 0 15px;
+    background-color: white;
+    border: none;
+    border-radius: 20px;
+    font-size: 14px;
+    appearance: none;
+    text-align: center;
+}
+
+/* Button styles */
+.login-button {
+    display: block;
+    width: 100%;
+    height: 40px;
+    margin-top: 20px;
+    border-radius: 20px;
+    background-color: transparent;
+    color: white;
+    border: 2px solid white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.login-button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+/* Error message styles */
+.login-error-message {
+    color: #ff6b6b;
+    text-align: center;
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+/* Register link styles */
+.login-register-link {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
+    color: white;
+}
+
+.login-register-anchor {
+    color: white;
+    text-decoration: underline;
+}
+
+.login-register-anchor:hover {
+    color: #ddd;
+}
+
+/* Image container styles */
+.login-image-container {
+    width: 400px;
+    height: 100%; /* Match parent height */
+    background-color: #f5f5f5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden; /* Ensure image doesn't overflow */
+}
+
+.login-side-image {
+    width: 100%;
+    height: 100%; /* Fill container */
+    object-fit: cover; /* Maintain aspect ratio while filling container */
+}
+
+/* Responsive styles */
+@media (max-width: 850px) {
+    .login-page-container {
+        flex-direction: column;
+        width: 90%;
+        max-width: 400px;
+        height: auto; /* Auto height on mobile */
+    }
+    
+    .login-form-container,
+    .login-image-container {
+        width: 100%;
+        height: auto; /* Auto height on mobile */
+    }
+    
+    .login-side-image {
+        height: 300px; /* Fixed height for mobile image */
+    }
 }

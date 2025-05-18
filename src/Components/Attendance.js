@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import './Attendance.css';
 
@@ -26,7 +25,13 @@ function Attendance() {
     const handleSubmitAttendance = () => {
         const presentees = presentRolls.size;
         const absentees = rollNumbers.length - presentees;
-        alert(`Total Presentees: ${presentees}\nTotal Absentees: ${absentees}`);
+        const attendancePercentage = ((presentees / rollNumbers.length) * 100).toFixed(2);
+
+        alert(
+            `Total Presentees: ${presentees}\n` +
+            `Total Absentees: ${absentees}\n` +
+            `Attendance Percentage: ${attendancePercentage}%`
+        );
     };
 
     return (

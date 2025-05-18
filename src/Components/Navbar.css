@@ -1,42 +1,182 @@
-.navbar{
-    background:linear-gradient(90deg,#161D6F, #0B2F9F);
+/* Navbar Styles */
+.navbar {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    padding: 20px 0;
+    z-index: 1000;
+    transition: all 0.3s ease;
+    background: linear-gradient(90deg, #0d47a1, #1a73e8);
+  }
+  
+  .navbar.scrolled {
+    background: linear-gradient(90deg, #0d47a1, #1a73e8);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+ 
+  }
+  
+  .navbar .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 30px;
     display: flex;
-    justify-content: flex-end;
-}
-.navbar ul{
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .logo {
+    font-size: 1.8rem;
+    font-weight: 700;
     display: flex;
-    gap: 40px;
-    
-}
-.navbar li{
-    list-style-type: none;
-    margin-top: 20px;
-}
-.navbar a{
+    align-items: center;
+  }
+  
+  .vignan {
+    color: #ffffff;
+  }
+  
+  .ecell {
+    color: #ffca28;
+    margin-left: 8px;
+  }
+  
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+  }
+  
+  .nav-links a {
+    position: relative;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #ffffff;
     text-decoration: none;
-    margin-right: 40px;
-    padding: 10px 20px;
-    background-color: white;
-    color: #0B2F9F;
+    transition: all 0.3s ease;
+  }
+  
+  .nav-links a:hover,
+  .nav-links a.active {
+    color: #ffca28;
+  }
+  
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    width: 0%;
+    height: 2px;
+    bottom: -5px;
+    left: 0;
+    background-color: #ffca28;
+    transition: width 0.3s;
+  }
+  
+  .nav-links a:hover::after {
+    width: 100%;
+  }
+  
+  /* Login Button */
+  .login-button {
+    background-color: #ffffff;
+    color: #1a73e8;
+    padding: 8px 18px;
     border-radius: 30px;
-    
-}
-.navbar a:hover{
-    background-color: bisque;
-    height: auto;
-    width: auto;
-}
-.navbar a:active{
-    background-color: rgb(6, 6, 88);
-    color: aliceblue;
-}
-.navbar .logo{
-    height: 60px;
-    width: 60px;
-    border-radius: 50px;
-    margin-right: 200px;
-    margin-top: -15px;
-}
-body{
-    text-align: center;
-}
+    font-weight: bold;
+    transition: all 0.3s ease;
+  }
+  
+  .login-button:hover {
+    background-color: #ffca28;
+    color: #0d47a1;
+  }
+  
+  /* Hamburger Menu */
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+  }
+  
+  .hamburger .line {
+    width: 25px;
+    height: 3px;
+    background: #ffffff;
+    margin: 4px;
+    transition: all 0.4s ease;
+  }
+  
+  .hamburger.open .line:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+  
+  .hamburger.open .line:nth-child(2) {
+    opacity: 0;
+  }
+  
+  .hamburger.open .line:nth-child(3) {
+    transform: rotate(-45deg) translate(6px, -6px);
+  }
+  .nav-links a {
+    color:white;
+    text-decoration: none;
+    position: relative;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    padding: 5px 0;
+  }
+  
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: #bdac15;
+    transition: width 0.3s ease;
+  }
+  
+  .nav-links a:hover::after {
+    width: 100%;
+  }
+  
+  /* Keep your existing login button styles */
+ 
+  
+ 
+  /* Responsive */
+  @media (max-width: 768px) {
+    .nav-links {
+      position: fixed;
+      top: 80px;
+      left: -100%;
+      width: 100%;
+      height: calc(100vh - 80px);
+      background: #ffffff;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 30px;
+      transition: left 0.4s ease;
+    }
+  
+    .nav-links.open {
+      left: 0;
+    }
+  
+    .nav-links a {
+      color: #1a73e8;
+      font-size: 1.2rem;
+    }
+  
+    .login-button {
+      background-color: #1a73e8;
+      color: #ffffff;
+    }
+  
+    .hamburger {
+      display: flex;
+    }
+  }
+  

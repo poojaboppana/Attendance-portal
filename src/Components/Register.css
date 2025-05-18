@@ -1,54 +1,165 @@
-.register{
-    display: flex;
-    height: 550px;
-    width: 800px;
 
-    margin-right: auto;
-    margin-top: 40px;
-    margin-left: auto;
-   
+/* Reset */
+.register-page-container,
+.register-page-container * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
 }
-.register .img .ecelimg{
-    height: 523px;
-    width: 400px;
+
+/* Main container */
+.register-page-container {
+    display: flex;
+    width: 800px;
+    height: 550px;
+    margin: 140px auto 0;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
-.register .register-form{
-    
+
+/* Form container */
+.register-form-container {
     background-color: #161D6F;
-    height: 400px;
     color: white;
-    width: 1000px;
-    padding: 50px;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
-.register .logo{
+
+/* Inner wrapper for padding */
+.register-form-inner {
+    width: 100%;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* Logo */
+.register-logo {
     height: 70px;
     width: 70px;
-    border-radius: 50px;
-}
-.register-form input{
-    margin-bottom: 10px;
-    height: 20px;
-    width: 250px;
+    border-radius: 50%;
+    margin: 0 auto 20px;
+    display: block;
     background-color: white;
-    border: 0px solid white;
-    border-radius: 20px;
-    text-align: center;
 }
-.register .register-form button{
+
+/* Title */
+.register-title {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 24px;
+    color: white;
+}
+
+/* Inputs */
+.register-input {
+    display: block;
+    width: 100%;
     height: 40px;
-    width: 250px;
+    margin-bottom: 20px;
+    padding: 0 15px;
+    background-color: white;
+    border: none;
     border-radius: 20px;
-    background-color: #161D6F;
+    font-size: 14px;
+}
+
+.register-input:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3);
+}
+
+/* Button */
+.register-button {
+    display: block;
+    width: 100%;
+    height: 40px;
+    margin-top: 20px;
+    border-radius: 20px;
+    background-color: transparent;
     color: white;
     border: 2px solid white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
 }
-.register .register-form h2{
-    margin-bottom: 40px;
+
+.register-button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
 }
-a{
+
+/* Error message */
+.register-error-message {
+    color: #ff6b6b;
+    text-align: center;
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+/* Login link */
+.register-login-link {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
     color: white;
-   
 }
-.register .register-form p{
+
+.register-login-anchor {
     color: white;
+    text-decoration: underline;
+}
+
+.register-login-anchor:hover {
+    color: #ddd;
+}
+
+/* Image container */
+.register-image-container {
+    flex: 1;
+    height: 550px;
+    background-color: #f5f5f5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.register-side-image {
+    width: 100%;
+    height: 600px;
+    object-fit: cover;
+}
+
+/* Responsive styles */
+@media (max-width: 850px) {
+    .register-page-container {
+        flex-direction: column;
+        width: 90%;
+        max-width: 400px;
+        height: auto;
+    }
+
+    .register-image-container {
+        flex: none;
+        height: 300px;
+        width: 100%;
+    }
+
+    .register-form-container {
+        flex: none;
+        width: 100%;
+        height: auto;
+    }
+
+    .register-side-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
 }

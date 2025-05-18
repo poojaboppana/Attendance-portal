@@ -1,194 +1,263 @@
-import React, { useState, useEffect } from 'react';
-import './Professor.css';
+import React, { useState, useEffect, useCallback } from 'react';
+import axios from 'axios';
 import * as XLSX from 'xlsx';
+import { FaBars, FaTimes, FaDownload, FaCalendarAlt } from 'react-icons/fa';
+import './Professor.css';
+
+const api = axios.create({
+  baseURL: 'http://localhost:5000/api',
+  withCredentials: true
+});
+
+const verticals = ['All Verticals', 'C&D', 'R&C', 'MR', 'Marketing', 'PR', 'CC', 'F&L'];
 
 function Professor() {
-    const [rollNumbers, setRollNumbers] = useState([]);
-    const [attendance, setAttendance] = useState({});
-    const [date, setDate] = useState('');
-    const [attendanceRecords, setAttendanceRecords] = useState([]);
-    const [presentCounts, setPresentCounts] = useState({});
-    const [totalDays, setTotalDays] = useState(0);
+  const [allStudents, setAllStudents] = useState([]);
+  const [filteredStudents, setFilteredStudents] = useState([]);
+  const [selectedDate, setSelectedDate] = useState('');
+  const [selectedVertical, setSelectedVertical] = useState('All Verticals');
+  const [attendanceRecords, setAttendanceRecords] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [activeTab, setActiveTab] = useState('mark-attendance');
 
-    useEffect(() => {
-        const savedRollNumbers = JSON.parse(localStorage.getItem('rollNumbers'));
-        const lastUpdated = localStorage.getItem('lastUpdated');
-        const oneYearInMillis = 365 * 24 * 60 * 60 * 1000;
+  const filterStudents = useCallback((students, vertical) => {
+    let filtered = [];
+    if (vertical === 'All Verticals') {
+      filtered = students;
+    } else {
+      filtered = students.filter(student => student.vertical === vertical);
+    }
+    setFilteredStudents(filtered);
+    
+    const initialRecords = filtered.map(student => ({
+      rollNumber: student.rollNumber.toString(),
+      status: 'Present'
+    }));
+    setAttendanceRecords(initialRecords);
+  }, []);
 
-        if (savedRollNumbers) {
-            setRollNumbers(savedRollNumbers);
-            const initialAttendance = {};
-            savedRollNumbers.forEach(roll => {
-                initialAttendance[roll] = false;
-            });
-            setAttendance(initialAttendance);
-
-            const currentTime = new Date().getTime();
-            if (!lastUpdated || currentTime - lastUpdated > oneYearInMillis) {
-                setAttendanceRecords([]);
-                setPresentCounts({});
-                setTotalDays(0);
-            } else {
-                const savedAttendanceRecords = JSON.parse(localStorage.getItem('attendanceRecords'));
-                if (savedAttendanceRecords) {
-                    setAttendanceRecords(savedAttendanceRecords);
-                    setTotalDays(savedAttendanceRecords.length);
-                    const updatedPresentCounts = savedAttendanceRecords.reduce((counts, record) => {
-                        Object.keys(record.attendance).forEach(roll => {
-                            if (record.attendance[roll] === 'Present') {
-                                counts[roll] = (counts[roll] || 0) + 1;
-                            }
-                        });
-                        return counts;
-                    }, {});
-                    setPresentCounts(updatedPresentCounts);
-                }
-            }
-        }
-    }, []);
-
-    const handleCheckboxChange = (rollNumber) => {
-        setAttendance((prev) => ({
-            ...prev,
-            [rollNumber]: !prev[rollNumber]
-        }));
+  useEffect(() => {
+    const fetchStudents = async () => {
+      try {
+        setLoading(true);
+        const response = await api.get('/users', {
+          params: { 
+            role: 'student'
+          }
+        });
+        setAllStudents(response.data);
+        filterStudents(response.data, selectedVertical);
+      } catch (err) {
+        console.error("Error fetching students:", err);
+        setError("Failed to load students");
+      } finally {
+        setLoading(false);
+      }
     };
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        if (!date) {
-            alert('Please enter a date to mark attendance.');
-            return;
-        }
+    if (selectedDate && activeTab === 'mark-attendance') {
+      fetchStudents();
+    }
+  }, [selectedDate, activeTab, filterStudents, selectedVertical]);
 
-        const currentAttendanceData = {};
-        rollNumbers.forEach(roll => {
-            currentAttendanceData[roll] = attendance[roll] ? 'Present' : 'Absent';
-            if (attendance[roll]) {
-                setPresentCounts((prev) => ({
-                    ...prev,
-                    [roll]: (prev[roll] || 0) + 1
-                }));
-            }
-        });
+  useEffect(() => {
+    if (allStudents.length > 0) {
+      filterStudents(allStudents, selectedVertical);
+    }
+  }, [selectedVertical, allStudents, filterStudents]);
 
-        const newAttendanceRecord = { date, attendance: currentAttendanceData };
-        const updatedAttendanceRecords = [...attendanceRecords, newAttendanceRecord];
-        setAttendanceRecords(updatedAttendanceRecords);
+  const handleSubmitAttendance = async () => {
+    if (!selectedDate) {
+      setError('Please select a date');
+      return;
+    }
 
-        // Recalculate totalDays as the number of distinct dates for which attendance has been taken.
-        setTotalDays(updatedAttendanceRecords.length);
+    if (attendanceRecords.length === 0) {
+      setError('No attendance records to submit');
+      return;
+    }
 
-        // Reset attendance for the next day
-        setAttendance((prev) => {
-            const updatedAttendance = {};
-            rollNumbers.forEach(roll => {
-                updatedAttendance[roll] = false; // Reset attendance for each roll number
-            });
-            return updatedAttendance;
-        });
+    try {
+      setLoading(true);
+      setError('');
+      
+      const formattedDate = new Date(selectedDate).toISOString().split('T')[0];
+      
+      const response = await api.post('/attendance', {
+        date: formattedDate,
+        records: attendanceRecords.map(record => ({
+          rollNumber: record.rollNumber.toString(),
+          status: record.status
+        }))
+      });
 
-        alert('Attendance submitted successfully for ' + date + '!');
+      if (response.data.success) {
+        alert('Attendance submitted successfully');
+      } else {
+        throw new Error(response.data.message || 'Failed to submit attendance');
+      }
+    } catch (err) {
+      console.error("Error submitting attendance:", err);
+      setError(err.response?.data?.message || err.message || "Failed to submit attendance");
+    } finally {
+      setLoading(false);
+    }
+  };
 
-        // Save to localStorage
-        localStorage.setItem('attendanceRecords', JSON.stringify(updatedAttendanceRecords));
-        localStorage.setItem('lastUpdated', new Date().getTime());
-
-        const attendanceData = {
-            rollNumbers,
-            presentCounts,
-            totalDays,
-            attendanceRecords: updatedAttendanceRecords
-        };
-
-        try {
-            const response = await fetch('http://localhost:5000/api/saveAttendance', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(attendanceData),
-            });
-
-            if (response.ok) {
-                alert('Attendance data saved to database successfully!');
-            } else {
-                alert('Failed to save attendance data.');
-            }
-        } catch (error) {
-            console.error('Error saving attendance data:', error);
-            alert('Error saving attendance data.');
-        }
-    };
-
-    const downloadExcel = () => {
-        const excelData = [];
-        const headerRow = ['Roll Number', ...attendanceRecords.map(record => record.date), 'Total Present', 'Total Absent', 'Present Percentage'];
-
-        rollNumbers.forEach(roll => {
-            const row = [roll];
-            attendanceRecords.forEach(record => {
-                row.push(record.attendance[roll] || 'Absent');
-            });
-
-            const presentCount = presentCounts[roll] || 0;
-            const absentCount = totalDays - presentCount;
-            const presentPercentage = totalDays > 0 ? ((presentCount / totalDays) * 100).toFixed(2) + '%' : '0%';
-            row.push(presentCount, absentCount, presentPercentage);
-            excelData.push(row);
-        });
-
-        const worksheet = XLSX.utils.aoa_to_sheet([headerRow, ...excelData]);
-        const workbook = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(workbook, worksheet, 'Attendance');
-        XLSX.writeFile(workbook, 'Attendance_Report.xlsx');
-    };
-
-    const handleDateChange = (e) => {
-        setDate(e.target.value);
-        const initialAttendance = {};
-        rollNumbers.forEach(roll => {
-            initialAttendance[roll] = false;
-        });
-        setAttendance(initialAttendance);
-    };
-
-    return (
-        <div className="professor">
-            <h2>Mark Attendance</h2>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label>
-                        Date:
-                        <input
-                            type="date"
-                            value={date}
-                            onChange={handleDateChange}
-                            required
-                        />
-                    </label>
-                </div>
-                <div className="roll-list">
-                    <ul>
-                        {rollNumbers.map((roll, index) => (
-                            <li key={index}>
-                                <label>
-                                    <input
-                                        type="checkbox"
-                                        checked={attendance[roll] || false}
-                                        onChange={() => handleCheckboxChange(roll)}
-                                    />
-                                    {roll}
-                                </label>
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-                <button type="submit">Submit Attendance</button>
-                <button type="button" onClick={downloadExcel}>Download Attendance Report</button>
-            </form>
-        </div>
+  const handleAttendanceChange = (rollNumber) => {
+    setAttendanceRecords(prev => 
+      prev.map(record => 
+        record.rollNumber === rollNumber 
+          ? { 
+              ...record, 
+              status: record.status === 'Present' ? 'Absent' : 'Present' 
+            } 
+          : record
+      )
     );
+  };
+
+  const handleDownload = () => {
+    const data = filteredStudents.map(student => {
+      const record = attendanceRecords.find(r => r.rollNumber === student.rollNumber);
+      return {
+        'Roll Number': student.rollNumber,
+        'Name': student.name,
+        'Vertical': student.vertical,
+        'Status': record ? record.status : 'Not Marked'
+      };
+    });
+
+    const worksheet = XLSX.utils.json_to_sheet(data);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Attendance");
+    XLSX.writeFile(workbook, `attendance_${selectedDate}.xlsx`);
+  };
+
+  const toggleSidebar = () => {
+    setSidebarOpen(!sidebarOpen);
+  };
+
+  return (
+    <>
+      <button className={`menu-toggle ${sidebarOpen ? 'active' : ''}`} onClick={toggleSidebar} aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <div className={`professor-dashboard ${sidebarOpen ? 'sidebar-open' : ''}`}>
+        <div className={`sidebar ${sidebarOpen ? 'active' : ''}`}>
+          <div className="sidebar-header">
+            <h2>Professor Dashboard</h2>
+          </div>
+          <nav className="dashboard-nav">
+            <ul>
+              <li
+                className={activeTab === 'mark-attendance' ? 'active' : ''}
+                onClick={() => {
+                  setActiveTab('mark-attendance');
+                  setSidebarOpen(false);
+                }}
+              >
+                <FaCalendarAlt className="nav-icon" /> Mark Attendance
+              </li>
+            </ul>
+          </nav>
+          <div className="sidebar-footer">
+            <p>© 2025 Professor Dashboard</p>
+          </div>
+        </div>
+
+        <main className="main-content">
+          <header className="dashboard-header">
+            <h1>Attendance Management</h1>
+            <div className="header-actions">
+              <button 
+                onClick={handleSubmitAttendance}
+                className="btn btn-primary"
+                disabled={!selectedDate || loading}
+              >
+                {loading ? 'Submitting...' : 'Submit Attendance'}
+              </button>
+              <button 
+                onClick={handleDownload}
+                className="btn btn-secondary"
+                disabled={!selectedDate || loading}
+              >
+                <FaDownload /> {window.innerWidth > 768 && 'Download'}
+              </button>
+            </div>
+          </header>
+
+          {error && <div className="alert alert-danger">{error}</div>}
+
+          <div className="content-body">
+            {loading && (
+              <div className="loading-overlay">
+                <div className="spinner"></div>
+              </div>
+            )}
+
+            <div className="filter-controls">
+              <div className="filter-group">
+                <label>Select Date:</label>
+                <input
+                  type="date"
+                  value={selectedDate}
+                  onChange={(e) => setSelectedDate(e.target.value)}
+                  required
+                />
+              </div>
+              <div className="filter-group">
+                <label>Select Vertical:</label>
+                <select
+                  value={selectedVertical}
+                  onChange={(e) => setSelectedVertical(e.target.value)}
+                >
+                  {verticals.map(v => (
+                    <option key={v} value={v}>{v}</option>
+                  ))}
+                </select>
+              </div>
+            </div>
+
+            <div className="attendance-grid">
+              {filteredStudents.length > 0 ? (
+                filteredStudents.map(student => {
+                  const record = attendanceRecords.find(r => r.rollNumber === student.rollNumber);
+                  const isAbsent = record?.status === 'Absent';
+                  return (
+                    <div key={student.rollNumber} className="attendance-item">
+                      <span className="roll-number">{student.rollNumber}</span>
+                      <input
+                        type="checkbox"
+                        checked={isAbsent}
+                        onChange={() => handleAttendanceChange(student.rollNumber)}
+                        disabled={loading}
+                        id={`attendance-${student.rollNumber}`}
+                      />
+                      <label 
+                        htmlFor={`attendance-${student.rollNumber}`} 
+                        className={`status-label ${isAbsent ? 'absent' : 'present'}`}
+                      >
+                        {isAbsent ? 'Absent' : 'Present'}
+                      </label>
+                    </div>
+                  );
+                })
+              ) : (
+                <div className="no-data">
+                  {selectedDate ? 'No students found for selected vertical' : 'Please select a date first'}
+                </div>
+              )}
+            </div>
+          </div>
+        </main>
+      </div>
+    </>
+  );
 }
 
 export default Professor;
