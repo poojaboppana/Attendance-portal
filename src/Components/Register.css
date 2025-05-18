@@ -1,4 +1,3 @@
-
 /* Reset */
 .register-page-container,
 .register-page-container * {
@@ -139,27 +138,17 @@
 /* Responsive styles */
 @media (max-width: 850px) {
     .register-page-container {
-        flex-direction: column;
         width: 90%;
         max-width: 400px;
         height: auto;
     }
 
-    .register-image-container {
-        flex: none;
-        height: 300px;
-        width: 100%;
-    }
-
     .register-form-container {
-        flex: none;
         width: 100%;
         height: auto;
     }
 
-    .register-side-image {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
+    .register-image-container {
+        display: none;
     }
 }

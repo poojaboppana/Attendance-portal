@@ -15,7 +15,7 @@
     border-radius: 20px;
     overflow: hidden;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    height: 500px; /* Fixed height for the entire container */
+    height: 500px;
 }
 
 /* Form container styles */
@@ -27,7 +27,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    height: 100%; /* Take full height of parent */
+    height: 100%;
 }
 
 /* Logo styles */
@@ -130,36 +130,34 @@
 /* Image container styles */
 .login-image-container {
     width: 400px;
-    height: 100%; /* Match parent height */
+    height: 100%;
     background-color: #f5f5f5;
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow: hidden; /* Ensure image doesn't overflow */
+    overflow: hidden;
 }
 
 .login-side-image {
     width: 100%;
-    height: 100%; /* Fill container */
-    object-fit: cover; /* Maintain aspect ratio while filling container */
+    height: 100%;
+    object-fit: cover;
 }
 
 /* Responsive styles */
 @media (max-width: 850px) {
     .login-page-container {
-        flex-direction: column;
         width: 90%;
         max-width: 400px;
-        height: auto; /* Auto height on mobile */
+        height: auto;
     }
     
-    .login-form-container,
-    .login-image-container {
+    .login-form-container {
         width: 100%;
-        height: auto; /* Auto height on mobile */
+        height: auto;
     }
     
-    .login-side-image {
-        height: 300px; /* Fixed height for mobile image */
+    .login-image-container {
+        display: none;
     }
 }
