@@ -919,3 +919,195 @@ img {
     height: 60px;
   }
 }
+/* Add these media queries at the end of your CSS file */
+
+@media (max-width: 767px) {
+  /* General mobile adjustments */
+  section {
+    padding: 50px 0;
+  }
+  
+  .container {
+    padding: 0 15px;
+  }
+  
+  .section-title {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+  }
+  
+  .section-subtitle {
+    font-size: 1rem;
+    margin-bottom: 30px;
+  }
+  
+  /* Hero section mobile adjustments */
+  .hero .container {
+    padding: 20px;
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .hero-content {
+    margin-bottom: 40px;
+    max-width: 100%;
+  }
+  
+  .hero-title {
+    font-size: 2.2rem;
+  }
+  
+  .title-line-1 {
+    font-size: 1.6rem;
+  }
+  
+  .hero-subtitle {
+    font-size: 1rem;
+  }
+  
+  .hero-image {
+    height: 300px;
+    width: 100%;
+  }
+  
+  .verticals-circle {
+    width: 280px;
+    height: 280px;
+  }
+  
+  .center-logo {
+    width: 80px;
+    height: 80px;
+  }
+  
+  .center-logo img {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .vertical-item {
+    width: 50px;
+    height: 50px;
+    font-size: 12px;
+    transform: translate(-50%, -50%) rotate(var(--angle)) translateX(110px) rotate(calc(-1 * var(--angle)));
+  }
+  
+  /* About section mobile */
+  .about-content {
+    flex-direction: column;
+    gap: 30px;
+  }
+  
+  .about-text {
+    order: 2;
+  }
+  
+  .about-image {
+    order: 1;
+  }
+  
+  .stats {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  /* Verticals section mobile */
+  .vertical-cards {
+    grid-template-columns: 1fr;
+  }
+  
+  .vertical-card {
+    padding: 20px;
+  }
+  
+  /* Events section mobile */
+  .event-cards {
+    grid-template-columns: 1fr;
+  }
+  
+  .event-card {
+    flex-direction: column;
+  }
+  
+  .event-date {
+    flex-direction: row;
+    justify-content: center;
+    gap: 20px;
+    padding: 15px;
+  }
+  
+  .date-day {
+    font-size: 1.5rem;
+  }
+  
+  /* Contact section mobile */
+  .contact-content {
+    flex-direction: column;
+    gap: 30px;
+  }
+  
+  .contact-info,
+  .contact-form {
+    padding: 20px;
+  }
+  
+  /* Modal mobile adjustments */
+  .modal-content {
+    width: 95%;
+    padding: 20px;
+  }
+  
+  /* Footer mobile */
+  .footer-content {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  
+  .footer-links ul {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Extra small devices */
+  .hero-title {
+    font-size: 1.8rem;
+  }
+  
+  .title-line-1 {
+    font-size: 1.4rem;
+  }
+  
+  .verticals-circle {
+    width: 240px;
+    height: 240px;
+  }
+  
+  .vertical-item {
+    transform: translate(-50%, -50%) rotate(var(--angle)) translateX(90px) rotate(calc(-1 * var(--angle)));
+    width: 45px;
+    height: 45px;
+    font-size: 10px;
+  }
+  
+  .btn {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+  }
+  
+  .info-item {
+    flex-direction: column;
+    gap: 5px;
+  }
+  
+  .info-icon {
+    margin-right: 0;
+    margin-bottom: 5px;
+  }
+  
+  .footer-links ul {
+    grid-template-columns: 1fr;
+  }
+}
